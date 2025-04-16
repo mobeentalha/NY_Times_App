@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { Layout, Select, List, Card, Typography, Image } from 'antd';
+import { Layout, List, Card, Typography, Image } from 'antd';
 import SelectComponent from './selectComponent'
+import {fetchMostViewedArticles} from './api'
 import './style.css'
 const { Header, Footer, Content } = Layout;
-import {fetchMostViewedArticles} from './api'
+
 function App() {
   const { Paragraph } = Typography;
   const [news, setNews] = useState([])
@@ -53,6 +54,7 @@ function App() {
               >
                 <Paragraph><strong>{item.byline}</strong></Paragraph>
                 <Paragraph>{item.abstract}</Paragraph>
+                <Paragraph> {item.source} </Paragraph>
                 <Paragraph type="secondary">{item.published_date}</Paragraph>
               </Card>
             </List.Item>
