@@ -1,21 +1,30 @@
 import React, {useState, useEffect} from 'react';
 import { Layout, Select, List, Card, Typography, Image } from 'antd';
+import SelectComponent from './selectComponent'
 import './style.css'
 const { Header, Footer, Content } = Layout;
 import {fetchMostViewedArticles} from './api'
 function App() {
-  const { Title, Paragraph } = Typography;
+  const { Paragraph } = Typography;
   const [news, setNews] = useState([])
-  useEffect(() => {
-    fetchMostViewedArticles(1).then((res) => {
-      console.log('res res res ', res);
+  const apiCall = (day) => {
+    fetchMostViewedArticles(day).then((res) => {
       if(res.status == 'OK'){
         setNews(res.results)
       }
     })
+  }
+  useEffect(() => {
+    apiCall(1)
   }, [])
+  const days =[
+    { value: '1', label: 'One' },
+    { value: '7', label: 'Seven' },
+    { value: '30', label: 'Thirty' },
+  ]
   const handleChange = value => {
     console.log(`selected ${value}`);
+    apiCall(value)
   };
   return (
     <>
@@ -24,17 +33,7 @@ function App() {
         <h1> NY Times App </h1> 
       </Header>
       <Content className='content' >
-        <Select
-          defaultValue="1"
-          size="middle"
-          onChange={handleChange}
-          options={[
-            { value: '1', label: 'One' },
-            { value: '7', label: 'Seven' },
-            { value: '30', label: 'Thirty' },
-          ]}
-          className='select'
-        />
+        <SelectComponent handleChange={handleChange} className="select" days={days} />
         <List
           grid={{ gutter: 16, column: 4 }}
           dataSource={news}
