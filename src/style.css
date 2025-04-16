@@ -1,0 +1,12 @@
+.header {
+    background: #dedede;
+    display: flex;
+    align-items: center;
+}
+.content {
+    padding: 10px;
+    background: #fff;
+}
+.select {
+    margin-bottom: 10px;
+}
